@@ -19,10 +19,15 @@ local M = {}
 ---@field direction SortDirection
 
 ---@class View
+---@field padding integer
 ---@field modified_icon string
 ---@field pinned_icon string
 ---@field window { auto_resize: boolean, width: number, focus_on_open: boolean }
 ---@field show_file_extension boolean
+---@field create_buffer_text fun(info: {display_name: string, path: string}): string
+---@field highlight_entire_active_line boolean
+---@field trim_buffer_text boolean
+---@field trim_icon string
 
 ---@class Keymaps
 ---@field use_default boolean
@@ -47,6 +52,7 @@ local M = {}
 ---@field sort SortOrder
 ---@field view View
 ---@field keymaps Keymaps
+---@field wrap boolean
 local config = {}
 
 M.get_config = function()
@@ -128,6 +134,7 @@ end
 function M.setup(user_config)
   ---@type Config
   local default = {
+    wrap = false,
     debug = {
       enabled = true,
       level = "error", -- "error" | "warn" | "info" | "debug" | "trace"
@@ -164,9 +171,16 @@ function M.setup(user_config)
       direction = "asc", -- "asc" | "desc"
     },
     view = {
+      padding = 1,
       modified_icon = "󰛿", -- when a buffer is modified, this icon will be shown
       pinned_icon = "󰃀",
       show_file_extension = false,
+      create_buffer_text = function(info)
+        return info.display_name
+      end,
+      trim_buffer_text = false,
+      trim_icon = "",
+      highlight_entire_active_line = false,
       window = {
         auto_resize = false,
         width = 35,

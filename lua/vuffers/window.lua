@@ -26,7 +26,7 @@ local buffer_options = {
 
 local window_options = {
   relativenumber = false,
-  number = true,
+  number = false,
   list = false,
   winfixwidth = true,
   winfixheight = true,
@@ -112,7 +112,7 @@ end
 
 ---@param opts? {win: integer}
 function M.open(opts)
-	opts = opts or { }
+  opts = opts or {}
 
   local view = _get_view()
 
