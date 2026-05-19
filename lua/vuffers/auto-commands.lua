@@ -81,14 +81,14 @@ function M.create_auto_group()
     end,
   })
 
-  vim.api.nvim_create_autocmd({ "BufModifiedSet" }, {
-    pattern = "*",
+  vim.api.nvim_create_autocmd({ "OptionSet" }, {
+    pattern = "modified",
     group = constants.AUTO_CMD_GROUP,
     callback = function(buffer)
       if not buf_utils.is_valid_buf(buffer) then
         return
       end
-      logger.debug("BufModifiedSet", { buffer = buffer })
+      logger.debug("OptionSet modified", { buffer = buffer })
 
       ui.update_modified_icon(buffer)
     end,
