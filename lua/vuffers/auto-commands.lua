@@ -81,7 +81,7 @@ function M.create_auto_group()
     end,
   })
 
-  if vim.fn.has("nvim-0.13") == 1 then
+  if vim.fn.exists("##BufModifiedSet") == 1 then
     vim.api.nvim_create_autocmd({ "BufModifiedSet" }, {
       pattern = "*",
       group = constants.AUTO_CMD_GROUP,
